@@ -14,6 +14,29 @@
 {{ text_preview }}
     </pre>
 
+    {% if deadlines and deadlines|length > 0 %}
+      <h2>Detected trial date & sample deadlines (very early version)</h2>
+      <p>This is a simple first pass: it looks for a line containing the word "trial" and a date, then builds a couple of example deadlines before that date.</p>
+
+      <table border="1" cellpadding="6" cellspacing="0">
+        <tr>
+          <th>Event</th>
+          <th>Date</th>
+          <th>Weekday</th>
+        </tr>
+        {% for d in deadlines %}
+        <tr>
+          <td>{{ d.label }}</td>
+          <td>{{ d.date_str }}</td>
+          <td>{{ d.weekday }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    {% else %}
+      <h2>No trial date found yet</h2>
+      <p>This early version couldn't detect a trial date automatically. That just means the parser logic needs to be taught your specific scheduling order format.</p>
+    {% endif %}
+
     <p><a href="/">Upload another PDF</a></p>
   </body>
 </html>
